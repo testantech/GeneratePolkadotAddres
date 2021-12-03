@@ -1,8 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'maven-publish'
 }
-
 android {
     compileSdk 31
 
@@ -41,7 +41,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api group: 'org.slf4j', name:'slf4j-api', version: '1.7.30'
+    api group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
 
     // websocket
     implementation 'com.neovisionaries:nv-websocket-client:2.9'
@@ -67,10 +67,24 @@ dependencies {
     testImplementation 'pl.pragmatists:JUnitParams:1.1.1'
     testImplementation 'com.github.doyaaaaaken:kotlin-csv-jvm:0.7.3'
     testImplementation 'org.mock-server:mockserver-netty:5.3.0'
-    implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0@aar") {
+    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0@aar") {
         transitive = true
     }
     implementation 'org.junit.jupiter:junit-jupiter-engine:5.4.0'
     implementation 'pl.pragmatists:JUnitParams:1.1.1'
     implementation 'com.opencsv:opencsv:3.8'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'com.github.testantech'
+                artifactId = "addressgeneration"
+                version = "1.0"
+            }
+        }
+    }
 }
