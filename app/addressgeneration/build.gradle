@@ -1,0 +1,76 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdk 31
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 31
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled = true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api group: 'org.slf4j', name:'slf4j-api', version: '1.7.30'
+
+    // websocket
+    implementation 'com.neovisionaries:nv-websocket-client:2.9'
+    // json
+    //noinspection DuplicatePlatformClasses
+    implementation 'org.json:json:20200518'
+    // crypto
+    api group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.65'
+    // xxhash
+    api group: 'org.lz4', name: 'lz4-java', version: '1.7.1'
+
+    // BIP-39: key generation from 12 words mnemonic
+    // not a fan of this dependency because it comes with spongy castle which we don't need
+    implementation 'com.github.NodleCode:BIP39:484f9d5d588'
+    implementation 'com.github.komputing:KBase58:0.1'
+
+    // kotlin
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.10"
+    implementation("io.reactivex.rxjava3:rxkotlin:3.0.0")
+
+    // test only dependencies
+    testImplementation 'pl.pragmatists:JUnitParams:1.1.1'
+    testImplementation 'com.github.doyaaaaaken:kotlin-csv-jvm:0.7.3'
+    testImplementation 'org.mock-server:mockserver-netty:5.3.0'
+    implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0@aar") {
+        transitive = true
+    }
+    implementation 'org.junit.jupiter:junit-jupiter-engine:5.4.0'
+    implementation 'pl.pragmatists:JUnitParams:1.1.1'
+    implementation 'com.opencsv:opencsv:3.8'
+}
